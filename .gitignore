@@ -1,0 +1,55 @@
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files (secrets)
+.env
+.env.*
+!.env.example
+
+# Logs
+logs
+*.log
+logs/*.log
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# OS / Editor specific
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Build / cache
+dist/
+build/
+.cache/
+coverage/
+.tmp/
+
+# Docker
+docker/data/
+docker-compose.override.yml
+
+# Puppeteer / Chromium cache
+.chromium/
+chrome-profile/
+tmp/
+temp/
+
+# Local data (screenshots, audio, JSON results)
+data/
+!examples/sample.json
+!examples/sample_screenshot.png
+
+# SQLite or local DB files
+src/sqlite-db/*.db
+src/sqlite-db/*.db-wal
+src/sqlite-db/*.db-shm

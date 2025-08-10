@@ -5,6 +5,8 @@
 NEO-TEST is a challenger project to NEO, providing a YouTube video processing queue system using Node.js, Express, BullMQ (Redis), Puppeteer, ffmpeg, yt-dlp, and SQLite. The system allows you to submit YouTube URLs, automatically download audio, capture thumbnails, convert to WAV, detect AI (GPTZero), transcribe (ElevenLabs), and retrieve results via API.
 
 ---
+## Link github: 
+https://github.com/VoHuan/NEO-TEST.git
 
 ## Setup
 

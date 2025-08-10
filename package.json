@@ -9,10 +9,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "app_dev": "nodemon --inspect src/server.js",
     "worker_dev": "nodemon --inspect src/worker.js",
-    "dev": "concurrently \"npm run app_dev\" \"npm run worker_dev\"",
+    "start_dev": "concurrently \"npm run app_dev\" \"npm run worker_dev\"",
     "app_prod": "node src/server.js",
     "worker_prod": "node src/worker.js",
-    "prod": "SET NODE_ENV=production& concurrently \"npm run app_prod\" \"npm run worker_prod\""
+    "start_prod": "sh ./start.sh"
   },
   "keywords": [],
   "author": "Vo Van Huan",
@@ -23,6 +23,7 @@
     "better-sqlite3": "^12.2.0",
     "bullmq": "^5.56.9",
     "cloudinary": "^2.7.0",
+    "cross-env": "^10.0.0",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "fluent-ffmpeg": "^2.1.3",

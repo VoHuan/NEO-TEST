@@ -15,7 +15,8 @@ module.exports = {
   cloudApiKey: process.env.CLOUD_API_KEY,
   cloudApiSecret: process.env.CLOUD_API_SECRET,
 
-  puppeteerExecutablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
+  puppeteerArgs: process.env.NODE_ENV === 'production' ? process.env.PUPPETEER_ARGS.split(',') : [],
+
   storageDir: process.env.STORAGE_DIR || './data',
   googleProjectId: process.env.GCP_PROJECT_ID,
 };

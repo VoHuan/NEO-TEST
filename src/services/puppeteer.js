@@ -1,15 +1,22 @@
-const puppeteer = require('puppeteer');
-const config = require('../ultils/config');
+const puppeteer = require("puppeteer");
+const config = require("../ultils/config");
+const logger = require("../ultils/logger");
+
 
 async function captureThumbnail(url, screenshotPath) {
   const browser = await puppeteer.launch({
-    args: config.puppeteerArgs,
-    executablePath: config.puppeteerExecutablePath
+    headless: true,
+    args: [
+      "--no-sandbox",
+      "--disabled-setuid-sandbox",
+      "--disable-dev-shm-usage",
+    ],
+    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || puppeteer.executablePath(),
   });
   const page = await browser.newPage();
-  await page.goto(url, { 
-    waitUntil: 'networkidle2',
-    timeout: 30000
+  await page.goto(url, {
+    waitUntil: "networkidle2",
+    timeout: 30000,
   });
 
   // Hide YouTube player controls
@@ -20,44 +27,44 @@ async function captureThumbnail(url, screenshotPath) {
       .ytp-gradient-bottom { display: none !important; }
       .ytp-gradient-top { display: none !important; }
       .ytp-progress-bar-container { display: none !important; }
-    `
+    `,
   });
 
   // Wait and play video
   const played = await page.evaluate(() => {
-    return new Promise(resolve => {
-      const v = document.querySelector('video');
+    return new Promise((resolve) => {
+      const v = document.querySelector("video");
       if (!v) return resolve(false);
-      
+
       function checkPlaying() {
         if (!v.paused && v.currentTime > 0) return resolve(true);
         setTimeout(() => resolve(false), 10000);
       }
-      
-      v.play().catch(()=>{});
-      v.addEventListener('playing', ()=> resolve(true));
+
+      v.play().catch(() => {});
+      v.addEventListener("playing", () => resolve(true));
       setTimeout(checkPlaying, 5000);
     });
   });
 
   // Wait for video to play
-  await new Promise(resolve => setTimeout(resolve, 2000));
+  await new Promise((resolve) => setTimeout(resolve, 2000));
 
   // Take screenshot
-  const playerHandle = await page.$('video') || await page.$('#player');
+  const playerHandle = (await page.$("video")) || (await page.$("#player"));
   if (playerHandle) {
-    await playerHandle.screenshot({ 
+    await playerHandle.screenshot({
       path: screenshotPath,
-      type: 'png' 
+      type: "png",
     });
   } else {
-    await page.screenshot({ 
-      path: screenshotPath, 
+    await page.screenshot({
+      path: screenshotPath,
       fullPage: false,
-      type: 'png'
+      type: "png",
     });
   }
-  
+
   await browser.close();
   return played;
 }

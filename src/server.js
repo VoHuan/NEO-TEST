@@ -33,5 +33,7 @@ app.get('/result/:id', (req, res) => {
   res.json(result);
 });
 
+app.get('/health', (_req,res)=>res.status(200).json({ok:true}));
+
 const port = process.env.PORT || 8080;
 app.listen(port, () => logger.info(`App is running on port ${port}`));

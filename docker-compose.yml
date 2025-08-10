@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  app:
+    build: .
+    image: vohuan0404/neo-test:v1.0     
+    container_name: neo-test-container  
+    ports:
+      - "8080:8080"
+    depends_on:
+      - redis
+    environment:
+      NODE_ENV: production
+      LOG_LEVEL: error
+      REDIS_URL: redis://redis:6379
+      PUPPETEER_CACHE_DIR: /home/pptruser/.cache/puppeteer
+  redis:
+    image: redis:7
+    container_name: redis
+    ports:
+      - "6379:6379"
